@@ -102,5 +102,11 @@ http模块提供两种使用方式：
 - 作为服务器端使用，创建一个http服务器，监听http客户端请求并响应
 - 作为客户端使用，发起一个http客户端请求，获取服务器端响应。
 
-#### node
+#### http.createServer()
+返回的是Server对象，参数是请求事件被触发执行时的回调函数，参数列表和request事件相同，第一个参数是客户端请求的IncomingMessage对象，第二个对象是用来制定和发送响应的ServerResponse对象。创建server对象，可以通过Server对象上的listen()方法开始监听。listen(port,[hostname],[backlog],[callback])
+
+```
+http.createServer((req, res) => {
+}).listen(port);
+```
 
