@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jsonp访问node服务器</title>
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+        // let importScript = (src) => {
+        //     let el = document.createElement('script');
+        //     el.src = src;
+        //     el.async = true;
+        //     el.defer = true;
+        //     document.body.appendChild(el);
+        // }
+        function importScript (src) {
+            let el = document.createElement('script');
+            el.src = src;
+            el.async = true;
+            el.defer = true;
+            document.body.appendChild(el);
+        }
+        let jsonpcallback = (rs) => {
+            document.getElementById('output').innerHTML = rs;
+        }
+        importScript('http://127.0.0.1:8081?username=munan&callback=jsonpcallback');
+    </script>
+</body>
+</html>

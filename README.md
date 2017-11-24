@@ -97,5 +97,10 @@ Url {
   href: 'https://www.baidu.com:3000/question/search?a=1&b=2#33' }
 ```
 ### HTTP-get/request
+http模块提供两种使用方式：
 
+- 作为服务器端使用，创建一个http服务器，监听http客户端请求并响应
+- 作为客户端使用，发起一个http客户端请求，获取服务器端响应。
+
+#### node
 
