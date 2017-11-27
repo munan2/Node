@@ -80,6 +80,37 @@ console.log(y.drink);
 [Function]
 undefined
 ```
+### HTTP
+http模块提供两种使用方式：
+
+- 作为服务器端使用，创建一个http服务器，监听http客户端请求并响应
+- 作为客户端使用，发起一个http客户端请求，获取服务器端响应。
+
+#### http.createServer()
+返回的是Server对象，参数是请求事件被触发执行时的回调函数，参数列表和request事件相同，第一个参数是客户端请求的IncomingMessage对象，第二个对象是用来制定和发送响应的ServerResponse对象。创建server对象，可以通过Server对象上的listen()方法开始监听。listen(port,[hostname],[backlog],[callback])
+
+```
+http.createServer((req, res) => {
+}).listen(port);
+```
+#### response.end()
+通知服务器，所有响应头和响应主体都已经发送，服务器视为已完成。三个参数,end里的内容必须是字符串。
+在createServer回调函数里，必须写上response.end()，如果不写，服务器会视为还未完成，这样浏览器会一直在转圈。
+#### response.writeHead(status, statusMessage, {})
+发送一个响应头给请求，第一个参数是状态码，第二个参数是statusMessage是可选的，最后一个参数是一个对象，响应头。
+
+```
+response.writeHead(200, {
+  'Content-Length': Buffer.byteLength(body),
+  'Content-Type': 'text/plain' });
+```
+这个方法在消息中只能被调用1次，且必须在response.end()之前被调用
+#### req.url用户请求的url地址
+提到url会涉及到两个模块
+
+- URL模块
+- querystring模块
+
 ### URL
 URL的组成格式：
 
@@ -113,28 +144,12 @@ Url {
   path: '/question/search?a=1&b=2',
   href: 'https://www.baidu.com:3000/question/search?a=1&b=2#33' }
 ```
-### HTTP
-http模块提供两种使用方式：
+### querystring 查询字符串
+- querystring.parse()
 
-- 作为服务器端使用，创建一个http服务器，监听http客户端请求并响应
-- 作为客户端使用，发起一个http客户端请求，获取服务器端响应。
+	```
+	querystring.parse('a=123&b=234&c=456')
+	{ a: '123', b: '234', c: '456' }
+	```
+- querystring.stringfy()与parse相反
 
-#### http.createServer()
-返回的是Server对象，参数是请求事件被触发执行时的回调函数，参数列表和request事件相同，第一个参数是客户端请求的IncomingMessage对象，第二个对象是用来制定和发送响应的ServerResponse对象。创建server对象，可以通过Server对象上的listen()方法开始监听。listen(port,[hostname],[backlog],[callback])
-
-```
-http.createServer((req, res) => {
-}).listen(port);
-```
-#### response.end()
-通知服务器，所有响应头和响应主体都已经发送，服务器视为已完成。三个参数,end里的内容必须是字符串。
-在createServer回调函数里，必须写上response.end()，如果不写，服务器会视为还未完成，这样浏览器会一直在转圈。
-#### response.writeHead(status, statusMessage, {})
-发送一个响应头给请求，第一个参数是状态码，第二个参数是statusMessage是可选的，最后一个参数是一个对象，响应头。
-
-```
-response.writeHead(200, {
-  'Content-Length': Buffer.byteLength(body),
-  'Content-Type': 'text/plain' });
-```
-这个方法在消息中只能被调用1次，且必须在response.end()之前被调用
