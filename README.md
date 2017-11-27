@@ -154,5 +154,54 @@ Url {
 - querystring.stringfy()与parse相反
 
 ### 原生node路由的设计
-- 
+可以通过判断req.url来实现
+
+```
+const http = require('http');
+const url = require('url');
+var server = http.createServer((req, res) => {
+    //得到url
+    let userUrl = req.url;
+    if (userUrl.substr(0,9) === '/student/') {
+        let studentId = userUrl.substr(9);
+         if (/\d{10}/.test(studentId)) {
+            res.end('stduentInfo');
+         } else {
+             res.end('error student number');
+         }
+    } else if (userUrl.substr(0,9) === '/teacher/') {
+        let teacherId = userUrl.substr(9);
+        if (/\d{6}/.test(teacherId)) {
+           res.end('teacherInfo');
+        } else {
+            res.end('error teacher number');
+        }
+    } else {
+        res.end('err url');
+    }
+});
+server.listen(8080, '127.0.0.1');
+```
+
+### fs
+#### readFile
+三个参数 
+
+- path 文件路径，记住要加上./表示当前目录下
+- options 对象或者字符串
+	- encoding 编码方式
+	- flag 默认为'r'一般不会用到
+- callback 函数，这个函数有两个参数err,data
+
+	```
+	fs.readFile('./test.txt', {"charest": "utf-8"}, (err, data) => {
+	    if (err) {
+	        throw err;
+	    }
+	    console.log(1);
+	    res.end(data);
+	});
+	console.log(2);
+	```
+
 
