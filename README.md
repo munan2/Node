@@ -153,3 +153,6 @@ Url {
 	```
 - querystring.stringfy()与parse相反
 
+### 原生node路由的设计
+- 
+
