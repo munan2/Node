@@ -203,5 +203,15 @@ server.listen(8080, '127.0.0.1');
 	});
 	console.log(2);
 	```
+#### mkdir
+创建文件夹
+
+	```
+	let server = http.createServer((req, res) => {
+	    fs.mkdir('./aa');
+	    res.end();
+	});
+	```
+####
 
 
