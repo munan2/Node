@@ -214,5 +214,25 @@ server.listen(8080, '127.0.0.1');
 	```
 #### rmdir
 删除文件夹
+### path
+#### path.extname(path)
+返回path的拓展名，从path的最后一个.字符到字符串结束。
+
+	```
+	path.extname('index.html');
+	// 返回: '.html'
+	
+	path.extname('index.coffee.md');
+	// 返回: '.md'
+	
+	path.extname('index.');
+	// 返回: '.'
+	
+	path.extname('index');
+	// 返回: ''
+	
+	path.extname('.index');
+	// 返回: ''
+	```
 
 
