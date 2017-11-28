@@ -23,6 +23,15 @@ let server = http.createServer((req, res) => {
 });
 server.listen(8080, '127.0.0.1');
 function getMime (extname) {
+    fs.readFile('./mime.json', (err, data) => {
+        if (err) {
+            throw err;
+            return;
+        }
+        //转换成json
+    let mimeJson = JSON.parse(data);
+    return mimeJson;
+    })
     switch(extname) {
         case '.html':
             return "text/html";
