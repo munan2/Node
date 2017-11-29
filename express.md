@@ -8,6 +8,12 @@ npm install express --save
 
 ```
 ## API
+### express()
+express()是一个由express模块导出的入口函数
+```ruby
+var express = require('express');
+var app = express();
+```
 ### 路由
 路由有一个URI、HTTP请求和若干句柄组成，结构如下
 ```ruby
@@ -45,4 +51,12 @@ app.all('/secret', function (req, res, next) {
 6. res.render() 渲染视图模板
 7. res.send()发送各种类型的响应
 8. res.sendStatus()设置响应状态码
+
+### 托管静态文件
+Express内置的express.static可以方便地托管静态文件，例如图片，css,js文件等。将静态资源文件所在的目录作为参数传递给express.static中间件就可以提供静态资源文件的访问
+```ruby
+app.use(express.static('./public'));
+```
+
+### 中间件
 
