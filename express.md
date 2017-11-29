@@ -59,4 +59,53 @@ app.use(express.static('./public'));
 ```
 
 ### 中间件
+什么是中间件？
+中间件是一个函数，可以访问请求对象，响应对象，和web应用中处于请求-循环流程中的中间件，一般命名为next变量
+中间件的功能
+- 执行代码
+- 修改请求和响应对象
+- 终结请求-响应循环
+- 调用堆栈中的下一个中间件
 
+如果中间件没有终结请求-响应循环，就必须用next()方法将控制权交给下一个中间件，否则请求会挂起。  
+```
+request               app
+   |                          yes
+   +------------------>match?----->middleware1
+                         | no          |
+                         v             |
+                        next<----------+
+                         |
+                         v    yes
+                      match?------>middleware2
+                         | no          |
+                         v             |
+                        next<----------+
+                         |
+                         v    yes
+                      match?------>middleware3
+                         | no          |
+                         v             |
+                        out<-----------+
+                         |
+   +---------------------+
+   |
+   v
+  end(response在处理过程中已经返回了)
+```
+#### 应用级中间件
+绑定在app对象上，使用app.use()或者app.method()
+```ruby
+app.use(function (req, res, next) {
+    console.log('Time', Date.now());
+    next();
+})
+app.use('/user/:id', function (req, res, next) {
+    console.log('user'+ req.params.id);
+    next();
+})
+app.get('/user/:id', function (req, res, next) {
+    res.send('user-get'+ req.params.id);
+    next();
+})
+```
