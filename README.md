@@ -204,6 +204,7 @@ server.listen(8080, '127.0.0.1');
 	});
 	console.log(2);
 	```
+	
 #### mkdir
 创建文件夹
 
@@ -213,6 +214,7 @@ server.listen(8080, '127.0.0.1');
 	    res.end();
 	});
 	```
+	
 #### rmdir
 删除文件夹
 ### path
@@ -248,4 +250,27 @@ fs.readFile('./mime.json', (err, data) => {
 ```
 注意这里需要对data做一下处理，JSON.parse(data)，否则是buffer类型的数据，而不是json格式的
 
+## POST请求
+Node.js将POST请求的数据拆分成为了众多的数据块(chunk)，然后通过特定的事件，将这些小数据块有序传递给回调函数。
 
+```
+const http = require('http');
+const querystring = require('querystring');
+var server = http.createServer((req, res) => {
+    if (req.url === '/postRequest' && req.method.toLowerCase() === 'post') {
+        let postData = '';
+        //node为了追求极致，都是一小段的接收，接收一小段可能会去给别人服务了，防止一个过大的表单阻塞了整个进程
+        req.addListener('data', (chunk) => {
+            postData += chunk;
+            console.log(chunk);
+        })
+        //全部传输完毕
+        req.addListener('end', () => {
+            console.log(postData.toString());
+            res.end('success');
+        })
+    }
+})
+server.listen(3000, '127.0.0.1')
+```
+原生的POST，要写两个监听

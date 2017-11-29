@@ -1,5 +1,5 @@
 const http = require('http');
-const query = require('querystring');
+const querystring = require('querystring');
 const fs = require('fs');
 let file = './post.json';
 let result = JSON.parse(fs.readFileSync(file));
@@ -10,7 +10,7 @@ http.createServer((req, res) => {
         postData += chunk;
     });
     req.addListener('end', () => {
-        let params = query.parse(postData);
+        let params = querystring.parse(postData);
         if (params.username === 'munan') {
             res.end(result);
         }
