@@ -28,6 +28,7 @@ __当应用程序需要处理大量并发的I/O，而在向客户端发出响应
 
 ## node学习笔记
 ### module.exports
+**暴露函数，变量可以使用exports，暴露一个类，使用module.exports** 
 每一个node.js执行文件时，都会自动创建一个module对象，同时module对象会创建一个叫exports的属性，初始化的值为{}
 
 ```
@@ -51,7 +52,7 @@ console.log(x.a);
 ```
 
 命令行里node test.js 输出的结果是：2   
-**module.export=aa,这里aa是一个函数，也是一个对，象它相当于导出了整个aa对象，外面的模块调用它的时候，能够调用aa的所有方法，这里注意的是只有aa的静态方法才能被调用，prototype创建的方法是aa的私有方法**
+**module.export=aa,这里aa是一个函数，也是一个对象它相当于导出了整个aa对象，外面的模块调用它的时候，能够调用aa的所有方法，这里注意的是只有aa的静态方法才能被调用，prototype创建的方法是aa的私有方法**
 
 ```
 //Fn.js
@@ -234,6 +235,7 @@ server.listen(8080, '127.0.0.1');
 	path.extname('.index');
 	// 返回: ''
 	```
+	
 ## readFile读取json文件
 ```
 fs.readFile('./mime.json', (err, data) => {
