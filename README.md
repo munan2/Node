@@ -234,5 +234,16 @@ server.listen(8080, '127.0.0.1');
 	path.extname('.index');
 	// 返回: ''
 	```
+## readFile读取json文件
+```
+fs.readFile('./mime.json', (err, data) => {
+        if (err) {
+            throw Error('找不到mime.json文件');
+            return;
+        }
+        let data2 = JSON.parse(data);
+    })
+```
+注意这里需要对data做一下处理，JSON.parse(data)，否则是buffer类型的数据，而不是json格式的
 
 
